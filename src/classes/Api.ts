@@ -21,9 +21,9 @@ class API {
   //   return Math.floor(Math.random() * (max - min) + min);
   // }
 
-  // async get(collection) {
-  //   return axiosInstance.get(`list/${collection}`);
-  // }
+  async get(category: string) {
+    return axiosInstance.get(`list/${category}`);
+  }
 
   // async getOne(collection, id) {
   //   let { stock } = (

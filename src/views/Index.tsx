@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStateI } from "../interfaces/RootStateI";
-import { StockElementI } from "../interfaces/StockI";
-import { StateI } from "../interfaces/StateI";
+import { StateI, StockElementI } from "../interfaces/StateI";
+import { switchCategory } from "../actions/stateA";
+import { api } from "../classes/Api";
+import { actionTypes } from '../constants';
 
 const Index = () => {
   const state: StateI = useSelector((rootState: RootStateI) => rootState.state);
   const dispatch = useDispatch();
+
+  // console.log(state);
+
+  useEffect(() => {
+    api.get(state.category).then(response => {
+      const { data, config } = response;
+
+      if(data === "") {
+
+        dispatch({
+          type: actionTypes.SET_ERRORS,
+          payload: {
+            errorType: "api/get",
+            message: `Url: ${config.url}; Method:${config.method} returned an empty string.`,
+          }
+        })
+
+      } else {
+
+
+
+      }
+
+    })
+  }, [state.initialLoad]);
 
   return (
     <nav className="panel">
@@ -22,59 +49,15 @@ const Index = () => {
       <p className="panel-tabs">
         {state.stocks.map((stock: StockElementI) => (
           <a 
-            onClick={() => dispatch({type: "asd"})}
-            className={stock.name === state.currentStock ? "is-active" : ""}
+            onClick={() => dispatch(switchCategory(stock.name))}
+            className={stock.name === state.category ? "is-active" : ""}
             key={stock.name}>
               {stock.name}
           </a>
         ))}
         
       </p>
-      <a className="panel-block is-active">
-        <span className="panel-icon">
-          <i className="fas fa-book" aria-hidden="true"></i>
-        </span>
-        bulma
-      </a>
-      <a className="panel-block">
-        <span className="panel-icon">
-          <i className="fas fa-book" aria-hidden="true"></i>
-        </span>
-        marksheet
-      </a>
-      <a className="panel-block">
-        <span className="panel-icon">
-          <i className="fas fa-book" aria-hidden="true"></i>
-        </span>
-        minireset.css
-      </a>
-      <a className="panel-block">
-        <span className="panel-icon">
-          <i className="fas fa-book" aria-hidden="true"></i>
-        </span>
-        jgthms.github.io
-      </a>
-      <a className="panel-block">
-        <span className="panel-icon">
-          <i className="fas fa-code-branch" aria-hidden="true"></i>
-        </span>
-        daniellowtw/infboard
-      </a>
-      <a className="panel-block">
-        <span className="panel-icon">
-          <i className="fas fa-code-branch" aria-hidden="true"></i>
-        </span>
-        mojs
-      </a>
-      <label className="panel-block">
-        <input type="checkbox" />
-        remember me
-      </label>
-      <div className="panel-block">
-        <button className="button is-link is-outlined is-fullwidth">
-          Reset all filters
-        </button>
-      </div>
+      <a className="panel-block">bulma</a>
     </nav>
   );
 };
