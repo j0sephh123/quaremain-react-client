@@ -9,5 +9,6 @@ export const statusCode = {
 export const actionTypes = {
   SWITCH_CATEGORY: "SWITCH_CATEGORY",
   SET_ERRORS: "SET_ERRORS",
+  LOAD_STOCKS: "LOAD_STOCKS",
 }
 

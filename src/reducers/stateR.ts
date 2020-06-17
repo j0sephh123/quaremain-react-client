@@ -1,14 +1,14 @@
-import { ActionI } from "../interfaces/ActionI";
-import { StateI, ErrorI } from "../interfaces/StateI";
+import { Action } from "../interfaces/Action";
+import { State, Error } from "../interfaces/State";
 import { actionTypes } from "../constants";
 
-const initialState: StateI = {
+const initialState: State = {
   category: "food",
   stocks: [
-    {name: "food", icon: "fas fa-hamburger", list: []},
-    {name: "water", icon: "fas fa-tint", list: []},
-    {name: "medicine", icon: "fas fa-pills", list: []},
-    {name: "weapon", icon: "fas fa-shield-alt", list: []},
+    { name: "food", icon: "fas fa-hamburger", list: [] },
+    { name: "water", icon: "fas fa-tint", list: [] },
+    { name: "medicine", icon: "fas fa-pills", list: [] },
+    { name: "weapon", icon: "fas fa-shield-alt", list: [] },
   ],
   initialLoad: false,
   errors: {
@@ -16,7 +16,7 @@ const initialState: StateI = {
   },
 };
 
-export const state = (state = initialState, action: ActionI) => {
+export const state = (state = initialState, action: Action) => {
   switch (action.type) {
     case actionTypes.SET_ERRORS: {
       const { errorType, message } = action.payload;
@@ -24,7 +24,7 @@ export const state = (state = initialState, action: ActionI) => {
       const updatedErrors = {
         ...state.errors,
         [errorType]: message,
-      }
+      };
 
       return {
         ...state,
@@ -33,7 +33,7 @@ export const state = (state = initialState, action: ActionI) => {
     }
     case actionTypes.SWITCH_CATEGORY: {
       const { category } = action.payload;
-      
+
       return {
         ...state,
         category,

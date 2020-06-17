@@ -1,10 +1,10 @@
-export interface PayloadI {
+export interface Payload {
   errorType?: string;
   message?: string;
   category?: string;
 }
 
-export interface ActionI {
+export interface Action {
   type: string;
-  payload: PayloadI;
+  payload: Payload;
 }
