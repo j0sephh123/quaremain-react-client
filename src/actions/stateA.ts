@@ -1,7 +1,13 @@
 import { actionTypes } from "../constants";
-import { Food, Water, Stock } from "../interfaces/State";
+import { Stock, Food, Water } from "../interfaces/State";
 
-export const loadStocks = (stocks) => async (
+/**
+ * this isn't ok, but I haven't found yet how force stocks to be:
+ * Stock[] | Food[] | Water[]
+ * (stocks: Stock[] | Food[] | Water[]) -> this doesn't achieve anything
+ *  
+*/ 
+export const loadStocks = (stocks: Stock[] | Food[] | Water[]) => async (
   dispatch: any,
   getState: any
 ) => {
