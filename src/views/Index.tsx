@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../interfaces/RootState";
 import { State, StockElement } from "../interfaces/State";
-import { switchCategory } from "../actions/stateA";
+import { switchCategory, loadStocks } from "../actions/stateA";
 import { api } from "../classes/Api";
 import { actionTypes } from "../constants";
 
@@ -25,8 +25,7 @@ const Index = () => {
           },
         });
       } else {
-        const { stocks } = response.data;
-        console.log(stocks);
+        dispatch(loadStocks(response.data))
       }
     });
   }, [state.initialLoad]);
